@@ -1,0 +1,73 @@
+version: '3.5'
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  postgres-data:
+
+services:
+  ### PHP-FPM ##############################################
+  php-fpm:
+    build:
+      context: ./docker/php-fpm
+      args:
+        - INSTALL_XDEBUG=${PHP_FPM_INSTALL_XDEBUG}
+    volumes:
+      - ./docker/php-fpm/php${PHP_VERSION}.ini:/usr/local/etc/php/php.ini
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
+    ports:
+      - "${PHP_FPM_XDEBUG_PORT:-9003}:9003"
+    expose:
+      - "${NGINX_PHP_UPSTREAM_PORT:-9000}"
+    extra_hosts:
+      - "dockerhost:${DOCKER_HOST_IP}"
+      - "host.docker.internal:host-gateway"
+    environment:
+      - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
+    networks:
+      - backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  ### Nginx ###########################################
+  nginx:
+    build:
+      context: ./docker/nginx
+    volumes:
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
+      - ${NGINX_HOST_LOG_PATH}:/var/log/nginx
+      - ${NGINX_SITES_PATH}:/etc/nginx/sites-available
+      - ${NGINX_SSL_PATH}:/etc/nginx/ssl
+    ports:
+      - "${NGINX_HOST_HTTP_PORT:-80}:80"
+      - "${NGINX_HOST_HTTPS_PORT:-443}:443"
+    depends_on:
+      - php-fpm
+    networks:
+      - backend
+
+  ### PostgreSQL ###########################################
+  postgres:
+    build:
+      context: ./docker/postgres
+      args:
+        - POSTGRES_VERSION=${POSTGRES_VERSION}
+    volumes:
+      - postgres-data:/var/lib/postgresql
+      - ${POSTGRES_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
