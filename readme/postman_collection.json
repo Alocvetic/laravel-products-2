@@ -1,0 +1,246 @@
+{
+	"info": {
+		"_postman_id": "55737c4f-78de-4f8d-88a7-b1b83bdc5e9b",
+		"name": "laravel-products",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22935902"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://localhost/api/product/?page[limit]=9&page[number]=1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"product",
+								""
+							],
+							"query": [
+								{
+									"key": "page[limit]",
+									"value": "9"
+								},
+								{
+									"key": "page[number]",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "category",
+									"description": "price or -price; title or -title; category or -category",
+									"disabled": true
+								},
+								{
+									"key": "filter[price_from]",
+									"value": "400",
+									"disabled": true
+								},
+								{
+									"key": "filter[price_to]",
+									"value": "800",
+									"disabled": true
+								},
+								{
+									"key": "filter[category]",
+									"value": "food",
+									"description": "food, clothes, electronic",
+									"disabled": true
+								},
+								{
+									"key": "filter[search]",
+									"value": "1",
+									"description": "search in title",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://localhost/api/product/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"product",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Review",
+			"item": [
+				{
+					"name": "get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://localhost/api/review/?page[limit]=8&page[number]=1&filter[product_id]=1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"review",
+								""
+							],
+							"query": [
+								{
+									"key": "page[limit]",
+									"value": "8"
+								},
+								{
+									"key": "page[number]",
+									"value": "1"
+								},
+								{
+									"key": "filter[product_id]",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"author\": \"author 1\",\r\n    \"rating\": 5,\r\n    \"product_id\": 1,\r\n    \"text\": \"it's nice product!\"\r\n}"
+						},
+						"url": {
+							"raw": "https://localhost/api/review/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"review",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
