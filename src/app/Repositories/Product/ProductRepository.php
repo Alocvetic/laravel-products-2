@@ -20,9 +20,4 @@ final class ProductRepository
         return Product::query()->where('id', $id)
             ->firstOr(fn() => throw new ModelNotFoundException());
     }
-
-    public function checkById(int $id): bool
-    {
-        return Product::query()->where('id', $id)->exists();
-    }
 }

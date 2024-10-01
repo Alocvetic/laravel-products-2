@@ -4,6 +4,7 @@ namespace App\Http\Requests\Review;
 
 use App\DTO\Review\ReviewFilterDTO;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 final class ReviewFilterRequest extends FormRequest
 {
@@ -19,7 +20,7 @@ final class ReviewFilterRequest extends FormRequest
             'page.limit' => ['required', 'integer', 'min:1', 'max:24'],
             'page.number' => ['required', 'integer', 'min:1', 'max:99999999999'],
             'filter' => ['required', 'array'],
-            'filter.product_id' => ['required', 'integer', 'min:0'],
+            'filter.product_id' => ['required', 'integer', 'min:0', Rule::exists('products', 'id')],
         ];
     }
 

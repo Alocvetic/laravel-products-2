@@ -16,9 +16,11 @@ final class ReviewRepository
         return $query->paginate($pageData['limit'], page: $pageData['number']);
     }
 
-    public function create(CreateReviewDTO $DTO): void
+    public function create(CreateReviewDTO $DTO): int
     {
-        $product = new Review($DTO->toArray());
-        $product->save();
+        $review = new Review($DTO->toArray());
+        $review->save();
+
+        return $review->id;
     }
 }

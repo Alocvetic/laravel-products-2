@@ -9,7 +9,7 @@ final class ReviewFilterDTO
     public function __construct(
         public int $page_limit,
         public int $page_number,
-        public string $filter_product_id,
+        public int $filter_product_id,
     ) {
     }
 

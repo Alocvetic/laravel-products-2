@@ -18,8 +18,8 @@ final class CreateReviewRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'page.author' => ['required', 'string', 'min:2', 'max:255'],
-            'rating' => ['required', 'number', 'min:1', 'max:5'],
+            'author' => ['required', 'string', 'min:2', 'max:255'],
+            'rating' => ['required', 'integer', 'min:1', 'max:5'],
             'product_id' => ['required', 'integer', 'min:0', Rule::exists('products', 'id')],
             'text' => ['required', 'string', 'min:2', 'max:800'],
         ];

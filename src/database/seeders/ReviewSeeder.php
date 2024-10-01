@@ -16,7 +16,7 @@ class ReviewSeeder extends Seeder
         for ($i = 1; $i <= 26; $i++) {
             $query[] = [
                 'author' => fake()->name,
-                'description' => fake()->text(),
+                'text' => fake()->text(),
                 'rating' => random_int(1, 5),
                 'product_id' => random_int(1, 16),
                 'created_at' => $now,

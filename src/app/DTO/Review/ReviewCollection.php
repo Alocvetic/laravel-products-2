@@ -26,7 +26,7 @@ final class ReviewCollection
     {
         $reviewItems = [];
         foreach ($this->reviews as $review) {
-            $reviewItems[] = $review->toArray();
+            $reviewItems[] = $review->toArrayForIndex();
         }
 
         return [

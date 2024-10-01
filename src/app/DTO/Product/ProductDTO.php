@@ -12,6 +12,7 @@ final class ProductDTO
         public string $description,
         public string $category,
         public float $price,
+        public float $average_rating,
         public ?string $image = null,
     ) {
     }
@@ -23,6 +24,7 @@ final class ProductDTO
             'title' => $this->title,
             'category' => $this->category,
             'price' => $this->price,
+            'average_rating' => $this->average_rating,
             'image' => $this->image,
         ];
     }

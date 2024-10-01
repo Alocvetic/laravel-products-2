@@ -25,8 +25,11 @@ final class ReviewController extends Controller
     public function create(CreateReviewRequest $request): JsonResponse
     {
         $dto = $request->toDto();
-        $this->service->create($dto);
+        $reviewId = $this->service->create($dto);
 
-        return ResponseHelper::build(message: "Отзыв успешно создан!");
+        return ResponseHelper::build([
+            'id' => $reviewId
+        ],
+            message: "Отзыв успешно создан!");
     }
 }

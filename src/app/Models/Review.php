@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $rating
  * @property int $product_id
  * @property string $text
+ * @property string $created_at
  */
 class Review extends Model
 {

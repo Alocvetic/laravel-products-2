@@ -12,11 +12,18 @@ final class ReviewDTO
         public int $rating,
         public int $product_id,
         public string $text,
+        public string $date_created
     ) {
     }
 
-    public function toArray(): array
+    public function toArrayForIndex(): array
     {
-        return (array)$this;
+        return [
+            'id' => $this->id,
+            'author' => $this->author,
+            'rating' => $this->rating,
+            'text' => $this->text,
+            'date_created' => $this->date_created
+        ];
     }
 }

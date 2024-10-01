@@ -34,6 +34,7 @@ final class ProductFactory
             $product->description,
             $product->category,
             $product->price,
+            $product->averageRating(),
             $product->image,
         );
     }
