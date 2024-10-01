@@ -28,13 +28,15 @@ final class ProductFactory
 
     public function buildDto(Product $product): ProductDTO
     {
+        $averageRating = round((float)$product->reviews_avg_rating, 1);
+
         return new ProductDTO(
             $product->id,
             $product->title,
             $product->description,
             $product->category,
             $product->price,
-            $product->averageRating(),
+            $averageRating,
             $product->image,
         );
     }

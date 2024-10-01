@@ -12,10 +12,12 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->string('author');
-            $table->integer('rating');
+            $table->smallInteger('rating');
             $table->foreignIdFor(Product::class);
             $table->text('text');
             $table->timestamps();
+
+            $table->index('product_id');
         });
     }
 

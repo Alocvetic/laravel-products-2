@@ -13,9 +13,13 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('category');
-            $table->integer('price');
+            $table->float('price');
             $table->string('image')->nullable();
             $table->timestamps();
+
+            $table->index('title');
+            $table->index('category');
+            $table->index('price');
         });
     }
 

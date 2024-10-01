@@ -26,14 +26,12 @@ class Product extends Model
         'image',
     ];
 
+    protected $casts = [
+        'price' => 'float'
+    ];
+
     public function reviews(): HasMany
     {
-        return$this->hasMany(Review::class);
-    }
-
-    public function averageRating(): float
-    {
-        $averageRating = $this->reviews()->avg('rating');
-        return round($averageRating, 1);
+        return $this->hasMany(Review::class);
     }
 }

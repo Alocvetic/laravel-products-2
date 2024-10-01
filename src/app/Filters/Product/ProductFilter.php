@@ -26,6 +26,8 @@ final class ProductFilter
         $this->filter();
         $this->sort();
 
+        $this->calcAverageRatingFromReviews();
+
         return $this->query;
     }
 
@@ -76,13 +78,18 @@ final class ProductFilter
         }
     }
 
-    public function filterSearch(): void
+    protected function filterSearch(): void
     {
         $search = $this->dto->filter_search;
 
         if ($search !== null) {
             $this->query->where('title', 'like', '%' . $search . '%');
         }
+    }
+
+    protected function calcAverageRatingFromReviews(): void
+    {
+        $this->query->withAvg('reviews', 'rating');
     }
 
     protected function page(): void
